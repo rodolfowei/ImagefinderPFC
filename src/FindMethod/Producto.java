@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfKeyPoint;
@@ -51,5 +53,73 @@ public class Producto {
 	}
 	
 	
+	public Mat getDescriptors()
+	{
+		return product_descriptors;
+	}
+	
+	public void setBufimage(String path_prod)
+	{
+		File bufim = new File(path_prod);
+		try
+		{
+		imagenproducto = ImageIO.read(bufim);
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public BufferedImage obtainBuffimage()
+	{
+		return imagenproducto;
+	}
+	
+	public String getPath()
+	{
+		return imagepath;
+	}
+	
+	public void setName(String path_prod)
+	{
+		File f = new File(imagepath);
+		productname = f.getName();
+	}
+	
+	public String getName()
+	{
+		return productname;
+	}
+	
+	int getSimilaridad()
+	{
+		return similaridad;
+	}
+	
+	void setSimilaridad(int similaridad)
+	{
+		this.similaridad = similaridad;
+	}
+	
+	public int compareTo(Producto prod)
+	{
+		if(similaridad < prod.similaridad)
+			return -1;
+		
+		if(similaridad > prod.similaridad) 
+			return 1;
+		
+		return 0;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
+
