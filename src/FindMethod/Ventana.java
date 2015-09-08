@@ -81,6 +81,13 @@ public class Ventana {
 		frame.getContentPane().add(ButtonBrowse);
 		
 		JButton buttonSearchDB = new JButton("SearchDB");
+		buttonSearchDB.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent click) {
+				clickSearchDBA(click);
+			}
+		});
+		
 		buttonSearchDB.setBounds(304, 79, 89, 23);
 		frame.getContentPane().add(buttonSearchDB);
 		
@@ -156,9 +163,22 @@ public class Ventana {
 		if(!ruta_inIMG.equals(""))
 		{
 			String in_imagePath = ruta_inIMG;
-			//Crear un objeto comparador
-			//Crear un objeto producto para guardar el resultado
 			
+			ImageComparison comparatorobject = new ImageComparison();
+			Producto encontrado = comparatorobject.obtainbestmatch(in_imagePath);
+			
+			String imagefind = encontrado.imagepath;
+			IMG_name = encontrado.productname;
+			Image find_prod = Toolkit.getDefaultToolkit().getImage(imagefind);
+			
+			if(find_prod != null)
+			{
+				label_out.setText("");
+				ImageIcon icon = new ImageIcon(find_prod.getScaledInstance(label_out.getWidth(), 
+																		   label_out.getHeight(),
+																		   Image.SCALE_DEFAULT));
+				label_out.setIcon(icon);
+			}
 			
 			
 		}
